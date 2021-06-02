@@ -31,7 +31,11 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        paddingTop: "12vh",
+      }}
+    >
       {searchedPosts.map((post) => (
         <Post
           userId={post.userId}

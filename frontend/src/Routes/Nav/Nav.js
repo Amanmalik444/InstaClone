@@ -47,14 +47,14 @@ const Nav = () => {
           display: "flex",
           flexDirection: "row",
           width: "50%",
-          marginLeft: "5vh",
+          marginLeft: "4vh",
         }}
       >
         <SearchForeverTwoToneIcon
           style={{
-            marginTop: "30px",
+            marginTop: "24px",
             marginRight: "5px",
-            marginLeft: "5px",
+            marginLeft: "3px",
           }}
         />
         <TextField
@@ -67,7 +67,7 @@ const Nav = () => {
             history.push("/home", { searchValue: e.target.value });
           }}
           style={{
-            marginTop: "1vh",
+            marginTop: "2px",
           }}
         />
       </div>

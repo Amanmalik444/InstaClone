@@ -51,9 +51,10 @@ const Detail = ({ name, userName, id, bio, pic, posts, setPosts, refetch }) => {
         justifyContent: "center",
         alignItems: "center",
         marginLeft: "4%",
-        margin: "2vh",
+        marginRight: "4%",
         borderBottom: "1px solid rgba(0,0,0,0.5)",
         padding: "5vh",
+        paddingTop: "13vh",
       }}
     >
       <img
@@ -64,6 +65,7 @@ const Detail = ({ name, userName, id, bio, pic, posts, setPosts, refetch }) => {
           height: "30vh",
           width: "30vh",
           borderRadius: "100%",
+          // marginTop: "8vh",
         }}
       />
       <h1>{name}</h1>
