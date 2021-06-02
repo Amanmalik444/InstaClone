@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+* {
+  margin: 0;
+  font-family: 'Lora','Montserrat','Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-color: rgb(234, 238, 241); */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  z-index: 0;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0px 0 5px rgb(255, 255, 255); 
+  border-radius: 5px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgb(157, 157, 157); 
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4646; 
+}
