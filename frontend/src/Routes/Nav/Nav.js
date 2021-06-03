@@ -52,8 +52,8 @@ const Nav = () => {
       >
         <SearchForeverTwoToneIcon
           style={{
-            marginTop: "24px",
-            marginRight: "5px",
+            marginTop: "22px",
+            marginRight: "3px",
             marginLeft: "3px",
           }}
         />
@@ -65,9 +65,6 @@ const Nav = () => {
           variant="standard"
           onChange={(e) => {
             history.push("/home", { searchValue: e.target.value });
-          }}
-          style={{
-            marginTop: "2px",
           }}
         />
       </div>

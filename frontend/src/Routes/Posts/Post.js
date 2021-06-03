@@ -82,14 +82,17 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
               ""
             )}
           </div>
+          <div className="imageCover" onDoubleClick={toggleLike}>
+            <img
+              src={image}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              // }}
 
-          <img
-            src={image}
-            onDoubleClick={toggleLike}
-            alt="postImage"
-            className="image"
-          />
-
+              alt="postImage"
+              className="image"
+            />
+          </div>
           <div className="likes">
             {liked ? (
               <FavoriteBorderIcon
