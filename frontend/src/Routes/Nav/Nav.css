@@ -5,19 +5,21 @@
 .nav {
   position: fixed;
   background-color: rgb(255, 255, 255);
-  height: 8vh;
+  height: 58px;
   width: 97%;
+  padding-top: 2px;
   margin-left: 2%;
   margin-right: 2%;
   border-bottom: 1px solid rgb(0, 0, 0, 0.5);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   z-index: 1000;
 }
 
 .logo {
   height: 110%;
   margin-left: 2%;
+  margin-right: 8%;
   cursor: pointer;
 }
 

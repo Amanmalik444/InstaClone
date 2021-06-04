@@ -3,7 +3,6 @@
   "name": "context",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://instajmiserver.herokuapp.com/",
   "engines": {
     "node": "15.4.0",
     "npm": "7.9.0"

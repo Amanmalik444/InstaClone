@@ -82,14 +82,12 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
               ""
             )}
           </div>
-
           <img
             src={image}
-            onDoubleClick={toggleLike}
             alt="postImage"
             className="image"
+            onDoubleClick={toggleLike}
           />
-
           <div className="likes">
             {liked ? (
               <FavoriteBorderIcon
