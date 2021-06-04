@@ -3,6 +3,7 @@ import Logo from "../../utils/Logo.png";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
 import axios from "axios";
 import serverLink from "../../utils/serverLink";
 // import { toast } from "react-toastify";
@@ -18,33 +19,46 @@ const Register = () => {
 
   const Submit = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append("file", pic);
+    data.append("upload_preset", "presetIg");
+    data.append("cloud_name", "igjmi");
     axios
-      .post(`${serverLink}/register/`, {
-        name,
-        userName,
-        email,
-        password,
-        bio,
-        profilePic: pic,
-      })
+      .post("https://api.cloudinary.com/v1_1/igjmi/image/upload", data)
+      // .then((res) => res.json())
+
       .then((res) => {
-        console.log(res, "registered");
-        history.push("/login");
+        console.log(res.data.url);
+        axios
+          .post(`${serverLink}/register/`, {
+            name,
+            userName,
+            email,
+            password,
+            bio,
+            profilePic: res.data.url,
+          })
+          .then((res) => {
+            console.log(res, "registered");
+            history.push("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        console.log("uploaded");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
+
+    e.target.reset();
   };
 
   return (
     <div
       style={{
-        height: "80vh",
-        width: "100%",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: "10vh",
       }}
     >
       <div
@@ -52,15 +66,48 @@ const Register = () => {
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
-          height: "96vh",
-          width: "60vh",
           alignItems: "center",
           border: "1px solid rgba(0,0,0,0.2)",
+          paddingLeft: "10%",
+          paddingRight: "10%",
         }}
       >
-        <img src={Logo} style={{ width: "60%" }} alt="instagram" />
+        <img src={Logo} style={{ height: "15vh" }} alt="instagram" />
         <form onSubmit={Submit}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <label htmlFor="uploadPhoto">
+              <Input
+                // label="Enter Image"
+                type="file"
+                id="uploadPhoto"
+                name="image"
+                accept="image/*"
+                onChange={(e) => setPic(e.target.files[0])}
+                style={{
+                  display: "none",
+                }}
+                required
+              />
+              <Button
+                color="dark"
+                variant="outlined"
+                component="span"
+                style={{
+                  margin: "1vh",
+                  width: "210px",
+                  marginTop: "2vh",
+                }}
+              >
+                Select Image
+              </Button>
+            </label>
+
             <TextField
               id="outlined-basic"
               label="Enter Name"
@@ -68,7 +115,7 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              style={{ margin: "10px" }}
+              style={{ margin: "1vh", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -77,7 +124,7 @@ const Register = () => {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               required
-              style={{ margin: "10px" }}
+              style={{ margin: "1vh", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -86,7 +133,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ margin: "10px" }}
+              style={{ margin: "1vh", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -95,7 +142,7 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{ margin: "10px" }}
+              style={{ margin: "1vh", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -104,26 +151,16 @@ const Register = () => {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               required
-              style={{ margin: "10px" }}
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Profile pic"
-              variant="outlined"
-              value={pic}
-              onChange={(e) => setPic(e.target.value)}
-              required
-              style={{ margin: "10px" }}
+              style={{ margin: "1vh", width: "210px" }}
             />
 
             <Button
               variant="outlined"
               color="primary"
               type="submit"
-              style={{ margin: "10px" }}
+              style={{ margin: "1vh", width: "105px" }}
             >
-              Submit
+              Register
             </Button>
             <h5
               style={{
