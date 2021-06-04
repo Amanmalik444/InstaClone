@@ -46,8 +46,7 @@ const Nav = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          width: "50%",
-          marginLeft: "4vh",
+          // width: "100%",
         }}
       >
         <SearchForeverTwoToneIcon
