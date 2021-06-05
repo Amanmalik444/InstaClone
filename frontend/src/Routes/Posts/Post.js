@@ -131,7 +131,8 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   setComment(e.target.value);
                 }}
                 style={{
-                  // margin: "3%",
+                  marginLeft: "3px",
+                  marginRight: "3px",
                   // marginLeft: "1",
                   marginBottom: "1vh",
                 }}
@@ -143,6 +144,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   color="primary"
                   style={{
                     marginTop: "1vh",
+                    marginRight: "3px",
                   }}
                 >
                   <SendIcon color="default" />
@@ -153,6 +155,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   color="default"
                   style={{
                     marginTop: "1vh",
+                    marginRight: "3px",
                   }}
                 >
                   <SendIcon color="default" />
