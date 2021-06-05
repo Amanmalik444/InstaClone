@@ -24,11 +24,10 @@
 
 .accountPic {
   object-fit: cover;
-  height: 5vh;
-  width: 5vh;
+  height: 35px;
+  width: 35px;
   border-radius: 100%;
   border: 2px solid rgb(150, 66, 66);
   cursor: pointer;
-  margin-top: 1vh;
   margin-left: 30%;
 }
