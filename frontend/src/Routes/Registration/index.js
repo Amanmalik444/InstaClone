@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
+import InsertPhotoIconOutlined from "@material-ui/icons/InsertPhotoOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import serverLink from "../../utils/serverLink";
@@ -117,7 +118,7 @@ const Register = () => {
                   marginTop: "2vh",
                 }}
               >
-                Select Image
+                Profile picture <InsertPhotoIconOutlined />
               </Button>
             </label>
 

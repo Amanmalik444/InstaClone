@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@material-ui/icons/DeleteForeverRounded";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
@@ -41,10 +41,10 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
       })
       .then((res) => {
         console.log(res);
-      });
-    setLiked(!liked);
-    refetch();
-    refetch();
+        refetch();
+        setLiked(!liked);
+      })
+      .catch((err) => console.log(err));
   };
 
   //posting comments
@@ -58,11 +58,11 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
       })
       .then((res) => {
         console.log(res);
-      });
-    refetch();
-    refetch();
-    e.target.reset();
-    setComment("");
+        refetch();
+        e.target.reset();
+        setComment("");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -131,8 +131,8 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   setComment(e.target.value);
                 }}
                 style={{
-                  marginLeft: "3px",
-                  marginRight: "3px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
                   // marginLeft: "1",
                   marginBottom: "1vh",
                 }}
@@ -144,7 +144,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   color="primary"
                   style={{
                     marginTop: "1vh",
-                    marginRight: "3px",
+                    marginRight: "10px",
                   }}
                 >
                   <SendIcon color="default" />
@@ -155,7 +155,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   color="default"
                   style={{
                     marginTop: "1vh",
-                    marginRight: "3px",
+                    marginRight: "10px",
                   }}
                 >
                   <SendIcon color="default" />
