@@ -59,10 +59,10 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
       .then((res) => {
         console.log(res);
         refetch();
-        e.target.reset();
-        setComment("");
       })
       .catch((err) => console.log(err));
+    e.target.reset();
+    setComment("");
   };
 
   return (
