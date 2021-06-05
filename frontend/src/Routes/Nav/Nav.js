@@ -36,24 +36,35 @@ const Nav = () => {
 
   return (
     <div className="nav">
-      <img
-        src={Logo}
-        className="logo"
-        alt="instagram"
-        onClick={() => history.push(`/home`)}
-      />
+      <div
+        style={{
+          width: "32.5%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src={Logo}
+          className="logo"
+          alt="instagram"
+          onClick={() => history.push(`/home`)}
+        />
+      </div>
       <div
         style={{
           display: "flex",
           flexDirection: "row",
-          // width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "35%",
+          // height: "10%",
         }}
       >
         <SearchForeverTwoToneIcon
           style={{
-            marginTop: "22px",
             marginRight: "3px",
             marginLeft: "3px",
+            // height: "58px",
           }}
         />
         <TextField
@@ -65,16 +76,25 @@ const Nav = () => {
           onChange={(e) => {
             history.push("/home", { searchValue: e.target.value });
           }}
+          style={{
+            marginBottom: "17px",
+          }}
         />
       </div>
-
-      {/* <AccountCircleIcon className="account" onClick={handleClick} /> */}
-      <img
-        src={loggedInUser.profilePic}
-        className="accountPic"
-        alt="profilePic"
-        onClick={handleClick}
-      />
+      <div
+        style={{
+          width: "32.5%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src={loggedInUser.profilePic}
+          className="accountPic"
+          alt="profilePic"
+          onClick={handleClick}
+        />
+      </div>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

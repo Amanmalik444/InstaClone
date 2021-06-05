@@ -12,15 +12,14 @@
   margin-right: 2%;
   border-bottom: 1px solid rgb(0, 0, 0, 0.5);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   z-index: 1000;
 }
 
 .logo {
   height: 110%;
-  margin-left: 2%;
-  margin-right: 8%;
   cursor: pointer;
+  margin-right: 10%;
 }
 
 .accountPic {
@@ -29,8 +28,7 @@
   width: 5vh;
   border-radius: 100%;
   border: 2px solid rgb(150, 66, 66);
-  margin-left: 5%;
-  margin-right: 3%;
   cursor: pointer;
   margin-top: 1vh;
+  margin-left: 30%;
 }
