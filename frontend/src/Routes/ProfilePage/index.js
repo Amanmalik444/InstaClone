@@ -6,17 +6,22 @@ import serverLink from "../../utils/serverLink";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
+  const [postsFetched, setPostsFetched] = useState(false);
 
   // fetching all posts
   useEffect(() => {
     axios.get(`${serverLink}/post/`).then((res) => {
       // console.log(res.data);
       setPosts(res.data);
+      setPostsFetched(true);
     });
   }, []);
 
   const refetch = () => {
-    axios.get(`${serverLink}/post/`).then((res) => setPosts(res.data));
+    axios.get(`${serverLink}/post/`).then((res) => {
+      setPosts(res.data);
+      setPostsFetched(true);
+    });
   };
 
   //checking the user via localstorage
@@ -37,6 +42,8 @@ const Profile = () => {
         posts={posts}
         setPosts={setPosts}
         refetch={refetch}
+        postsFetched={postsFetched}
+        setPostsFetched={setPostsFetched}
       />
       <div
         style={{

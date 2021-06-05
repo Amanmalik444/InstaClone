@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import serverLink from "../../utils/serverLink";
 // import { toast } from "react-toastify";
@@ -15,19 +16,25 @@ const Register = () => {
   const [bio, setBio] = useState("");
   const [pic, setPic] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingValue, setLoadingValue] = useState(0);
   const history = useHistory();
 
   const Submit = (e) => {
+    setLoading(true);
+    setLoadingValue(10);
     e.preventDefault();
     const data = new FormData();
     data.append("file", pic);
     data.append("upload_preset", "presetIg");
     data.append("cloud_name", "igjmi");
+    setLoadingValue(35);
     axios
       .post("https://api.cloudinary.com/v1_1/igjmi/image/upload", data)
       // .then((res) => res.json())
 
       .then((res) => {
+        setLoadingValue(75);
         console.log(res.data.url);
         axios
           .post(`${serverLink}/register/`, {
@@ -39,6 +46,8 @@ const Register = () => {
             profilePic: res.data.url,
           })
           .then((res) => {
+            setLoadingValue(100);
+            setLoading(false);
             console.log(res, "registered");
             history.push("/login");
           })
@@ -47,7 +56,11 @@ const Register = () => {
           });
         console.log("uploaded");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoadingValue(100);
+        setLoading(false);
+      });
 
     e.target.reset();
   };
@@ -154,14 +167,19 @@ const Register = () => {
               style={{ margin: "1vh", width: "210px" }}
             />
 
-            <Button
-              variant="outlined"
-              color="primary"
-              type="submit"
-              style={{ margin: "1vh", width: "105px" }}
-            >
-              Register
-            </Button>
+            {loading === true ? (
+              <CircularProgress variant="determinate" value={loadingValue} />
+            ) : (
+              <Button
+                variant="outlined"
+                color="primary"
+                type="submit"
+                style={{ margin: "1vh", width: "105px" }}
+              >
+                Register
+              </Button>
+            )}
+
             <h5
               style={{
                 cursor: "pointer",

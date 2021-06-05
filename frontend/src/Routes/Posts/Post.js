@@ -4,6 +4,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteIcon from "@material-ui/icons/Delete";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
 import Comment from "./Comment";
 import axios from "axios";
 import serverLink from "../../utils/serverLink";
@@ -61,6 +62,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
     refetch();
     refetch();
     e.target.reset();
+    setComment("");
   };
 
   return (
@@ -91,11 +93,13 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
           <div className="likes">
             {liked ? (
               <FavoriteBorderIcon
+                color="default"
                 style={{ cursor: "pointer" }}
                 onClick={toggleLike}
               />
             ) : (
               <FavoriteIcon
+                color="error"
                 style={{ cursor: "pointer" }}
                 onClick={toggleLike}
               />
@@ -127,23 +131,33 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                   setComment(e.target.value);
                 }}
                 style={{
-                  margin: "5px",
-                  marginLeft: "15px",
+                  // margin: "3%",
+                  // marginLeft: "1",
+                  marginBottom: "1vh",
                 }}
               />
-              <Button
-                variant="outlined"
-                type="submit"
-                color="primary"
-                style={{
-                  margin: "10px",
-                  marginTop: "20px",
-                  minWidth: "90px",
-                }}
-                // onClick={postComment}
-              >
-                Comment
-              </Button>
+              {comment !== "" ? (
+                <Button
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                  style={{
+                    marginTop: "1vh",
+                  }}
+                >
+                  <SendIcon color="default" />
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  color="default"
+                  style={{
+                    marginTop: "1vh",
+                  }}
+                >
+                  <SendIcon color="default" />
+                </Button>
+              )}
             </div>
           </form>
         </div>

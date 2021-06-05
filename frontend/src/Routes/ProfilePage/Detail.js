@@ -3,28 +3,44 @@ import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { useHistory } from "react-router-dom";
 import serverLink from "../../utils/serverLink";
-import { createMuiTheme } from "@material-ui/core/styles";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
-const Detail = ({ name, userName, id, bio, pic, posts, setPosts, refetch }) => {
+const Detail = ({
+  name,
+  userName,
+  id,
+  bio,
+  pic,
+  posts,
+  setPosts,
+  refetch,
+  postsFetched,
+  setPostsFetched,
+}) => {
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingValue, setLoadingValue] = useState(0);
 
   const history = useHistory();
 
   const Upload = (e) => {
+    setPostsFetched(false);
+    setLoading(true);
+    setLoadingValue(10);
     e.preventDefault();
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "presetIg");
     data.append("cloud_name", "igjmi");
+    setLoadingValue(15);
     axios
       .post("https://api.cloudinary.com/v1_1/igjmi/image/upload", data)
-      // .then((res) => res.json())
-
       .then((res) => {
+        setLoadingValue(65);
         console.log(res.data.url);
         axios
           .post(`${serverLink}/post/`, {
@@ -35,6 +51,7 @@ const Detail = ({ name, userName, id, bio, pic, posts, setPosts, refetch }) => {
             comments: [],
           })
           .then((res) => {
+            setLoadingValue(100);
             console.log(res.data);
             refetch();
           })
@@ -43,8 +60,14 @@ const Detail = ({ name, userName, id, bio, pic, posts, setPosts, refetch }) => {
           });
 
         console.log("uploaded");
+        setLoading(false);
+        setLoadingValue(100);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        setLoadingValue(100);
+        console.log(err);
+      });
 
     e.target.reset();
   };
@@ -155,20 +178,24 @@ const Detail = ({ name, userName, id, bio, pic, posts, setPosts, refetch }) => {
             style={{
               margin: "3px",
               marginTop: "1vh",
+              marginBottom: "1vh",
               width: "200px",
             }}
           />
-          <Button
-            variant="outlined"
-            color="primary"
-            type="submit"
-            style={{
-              margin: "10px",
-              width: "100px",
-            }}
-          >
-            Upload
-          </Button>
+          {loading === false && postsFetched === true ? (
+            <Button
+              variant="outlined"
+              color="primary"
+              type="submit"
+              style={{
+                width: "100px",
+              }}
+            >
+              Upload
+            </Button>
+          ) : (
+            <CircularProgress variant="determinate" value={loadingValue} />
+          )}
         </div>
       </form>
     </div>
