@@ -41,6 +41,7 @@ const Nav = () => {
           width: "32.5%",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <img
@@ -86,6 +87,7 @@ const Nav = () => {
           width: "32.5%",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <img
