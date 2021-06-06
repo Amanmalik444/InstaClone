@@ -9,6 +9,8 @@ router.get("/", (req, res) => {
     .find()
     .populate("userId")
     .populate("comments.userId")
+    .sort({ createdAt: "desc" })
+    .exec()
     .then((post) => {
       res.json(post);
     });
@@ -74,7 +76,7 @@ router.post("/toggleLike", (req, res) => {
 router.post("/postComment", (req, res) => {
   post.findById(req.body.id).then((p) => {
     console.log(p.comments, req.body.userId, "before comment");
-    p.comments.push({userId : req.body.userId, text : req.body.comment});
+    p.comments.push({ userId: req.body.userId, text: req.body.comment });
     console.log(p.comments, req.body.userId, "after comment");
     p.save().then((post) => res.json(post));
   });
@@ -84,7 +86,9 @@ router.post("/postComment", (req, res) => {
 router.post("/deleteComment", (req, res) => {
   post.findById(req.body.postId).then((p) => {
     console.log(p.comments, "before deleting");
-    p.comments = p.comments.filter((comment) => comment._id.toString() !== req.body.commentId);
+    p.comments = p.comments.filter(
+      (comment) => comment._id.toString() !== req.body.commentId
+    );
     console.log(p.comments, "after deleting");
     p.save().then((post) => res.json(post));
   });
