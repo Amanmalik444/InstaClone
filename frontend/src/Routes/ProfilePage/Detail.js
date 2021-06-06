@@ -30,6 +30,7 @@ const Detail = ({
 
   const history = useHistory();
 
+  //uploading a new post
   const Upload = (e) => {
     setPostsFetched(false);
     setLoading(true);
@@ -57,6 +58,7 @@ const Detail = ({
             setLoadingValue(100);
             console.log(res.data);
             refetch();
+            setPosting(false);
           })
           .catch((err) => {
             console.log(err);
