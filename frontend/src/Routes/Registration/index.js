@@ -35,7 +35,7 @@ const Register = () => {
       // .then((res) => res.json())
 
       .then((res) => {
-        setLoadingValue(75);
+        setLoadingValue(100);
         console.log(res.data.url);
         axios
           .post(`${serverLink}/register/`, {
@@ -47,7 +47,7 @@ const Register = () => {
             profilePic: res.data.url,
           })
           .then((res) => {
-            setLoadingValue(100);
+            setLoadingValue(0);
             setLoading(false);
             console.log(res, "registered");
             history.push("/login");
@@ -59,7 +59,7 @@ const Register = () => {
       })
       .catch((err) => {
         console.log(err);
-        setLoadingValue(100);
+        setLoadingValue(0);
         setLoading(false);
       });
 
