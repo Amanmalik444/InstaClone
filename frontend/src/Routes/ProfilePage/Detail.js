@@ -23,6 +23,7 @@ const Detail = ({
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [loadingValue, setLoadingValue] = useState(0);
 
   const history = useHistory();
@@ -115,18 +116,32 @@ const Detail = ({
       >
         {userName}
       </h4>
-      <Button
-        variant="outlined"
-        color="primary"
-        style={{
-          margin: "10px",
-          width: "200px",
-        }}
-        onClick={deleteUser}
-      >
-        {" "}
-        Delete user{" "}
-      </Button>
+      {deleting === false ? (
+        <Button
+          variant="outlined"
+          color="primary"
+          style={{
+            margin: "10px",
+            width: "200px",
+          }}
+          onClick={() => setDeleting(true)}
+        >
+          {" "}
+          Delete user{" "}
+        </Button>
+      ) : (
+        <Button
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: "10px",
+            width: "200px",
+          }}
+          onClick={deleteUser}
+        >
+          confirm
+        </Button>
+      )}
       <p
         style={{
           marginTop: "2vh",
