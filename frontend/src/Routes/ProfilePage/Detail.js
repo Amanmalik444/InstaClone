@@ -261,7 +261,7 @@ const Detail = ({
           }}
           onClick={() => setPosting(true)}
         >
-          Post on instagram
+          Post on Instagram
         </Button>
       )}
     </div>
