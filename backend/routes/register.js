@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json("An error occured");
+      res.status(500).json("Error occured");
     });
 });
 
