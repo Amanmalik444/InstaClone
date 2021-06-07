@@ -1,3 +1,3 @@
 # InstaClone made using MERN stack.
 
-Deployed it heroku, contact me for link.
+Deployed it on heroku, contact me for link.
