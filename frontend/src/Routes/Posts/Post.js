@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import Comment from "./Comment";
 import axios from "axios";
-import serverLink from "../../utils/serverLink";
 import "./Post.css";
 
 const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
@@ -19,7 +18,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   //deleting the post
   const deletePost = () => {
     axios
-      .post(`${serverLink}/post/delete`, { id })
+      .post(`${process.env.REACT_APP_SERVER_LINK}/post/delete`, { id })
       .then((res) => {
         console.log(res);
         refetch();
@@ -35,7 +34,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   //toggle like
   const toggleLike = () => {
     axios
-      .post(`${serverLink}/post/toggleLike`, {
+      .post(`${process.env.REACT_APP_SERVER_LINK}/post/toggleLike`, {
         userId: loggedInUser._id,
         id,
       })
@@ -51,7 +50,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   const postComment = (e) => {
     e.preventDefault();
     axios
-      .post(`${serverLink}/post/postComment`, {
+      .post(`${process.env.REACT_APP_SERVER_LINK}/post/postComment`, {
         userId: loggedInUser._id,
         id,
         comment,

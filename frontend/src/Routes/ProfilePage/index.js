@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Detail from "./Detail";
 import axios from "axios";
 import Post from "../Posts/Post";
-import serverLink from "../../utils/serverLink";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
@@ -10,7 +9,7 @@ const Profile = () => {
 
   // fetching all posts
   useEffect(() => {
-    axios.get(`${serverLink}/post/`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_LINK}/post/`).then((res) => {
       // console.log(res.data);
       setPosts(res.data);
       setPostsFetched(true);
@@ -18,7 +17,7 @@ const Profile = () => {
   }, []);
 
   const refetch = () => {
-    axios.get(`${serverLink}/post/`).then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_LINK}/post/`).then((res) => {
       setPosts(res.data);
       setPostsFetched(true);
     });

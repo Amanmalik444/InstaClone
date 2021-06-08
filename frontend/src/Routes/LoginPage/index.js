@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
-import serverLink from "../../utils/serverLink";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -17,7 +16,10 @@ const Login = () => {
     setLoading(true);
     e.preventDefault();
     axios
-      .post(`${serverLink}/login/`, { userName, password })
+      .post(`${process.env.REACT_APP_SERVER_LINK}/login/`, {
+        userName,
+        password,
+      })
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("user", JSON.stringify(res.data));
