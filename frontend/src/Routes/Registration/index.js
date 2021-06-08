@@ -7,7 +7,6 @@ import Input from "@material-ui/core/Input";
 import InsertPhotoIconOutlined from "@material-ui/icons/InsertPhotoOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
-import serverLink from "../../utils/serverLink";
 // import { toast } from "react-toastify";
 
 const Register = () => {
@@ -38,7 +37,7 @@ const Register = () => {
         setLoadingValue(100);
         console.log(res.data.url);
         axios
-          .post(`${serverLink}/register/`, {
+          .post(`${process.env.REACT_APP_SERVER_LINK}/register/`, {
             name,
             userName,
             email,

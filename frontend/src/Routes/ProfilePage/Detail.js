@@ -6,7 +6,6 @@ import Input from "@material-ui/core/Input";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useHistory } from "react-router-dom";
-import serverLink from "../../utils/serverLink";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
 const Detail = ({
@@ -47,7 +46,7 @@ const Detail = ({
         setLoadingValue(65);
         console.log(res.data.url);
         axios
-          .post(`${serverLink}/post/`, {
+          .post(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
             userId: id,
             image: res.data.url,
             caption,
@@ -79,7 +78,7 @@ const Detail = ({
 
   const deleteUser = () => {
     axios
-      .post(`${serverLink}/profile/deleteUser`, { id })
+      .post(`${process.env.REACT_APP_SERVER_LINK}/profile/deleteUser`, { id })
       .then((res) => {
         console.log(res);
       })

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "../Posts/Post";
 import { useLocation } from "react-router-dom";
-import serverLink from "../../utils/serverLink";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -12,11 +11,15 @@ const HomePage = () => {
 
   // fetching all posts
   useEffect(() => {
-    axios.get(`${serverLink}/post/`).then((res) => setPosts(res.data));
+    axios
+      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`)
+      .then((res) => setPosts(res.data));
   }, []);
 
   useEffect(() => {
-    axios.get(`${serverLink}/post/`).then((res) => setPosts(res.data));
+    axios
+      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`)
+      .then((res) => setPosts(res.data));
   }, []);
 
   const searchedPosts = posts.filter(
@@ -27,7 +30,9 @@ const HomePage = () => {
   );
 
   const refetch = () => {
-    axios.get(`${serverLink}/post/`).then((res) => setPosts(res.data));
+    axios
+      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`)
+      .then((res) => setPosts(res.data));
   };
 
   return (
