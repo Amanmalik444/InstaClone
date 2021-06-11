@@ -13,6 +13,9 @@ router.post("/", (req, res) => {
     profilePic,
     bio,
   });
+
+  // const token = newUser.generateAuthToken();
+
   newUser
     .save()
     .then((user) => {

@@ -46,13 +46,21 @@ const Detail = ({
         setLoadingValue(65);
         console.log(res.data.url);
         axios
-          .post(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
-            userId: id,
-            image: res.data.url,
-            caption,
-            likes: [],
-            comments: [],
-          })
+          .post(
+            `${process.env.REACT_APP_SERVER_LINK}/post/`,
+            {
+              userId: id,
+              image: res.data.url,
+              caption,
+              likes: [],
+              comments: [],
+            },
+            {
+              headers: {
+                Authorization: JSON.parse(localStorage.getItem("jwt")),
+              },
+            }
+          )
           .then((res) => {
             setLoadingValue(100);
             console.log(res.data);

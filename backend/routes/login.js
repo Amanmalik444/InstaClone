@@ -1,15 +1,45 @@
 const express = require("express");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const passport = require("passport");
+const local = require("passport-local").Strategy;
+// const { AuthSchema } = require("../models/model.auth");
+// const JwtStrategy = require("passport-jwt").Strategy;
+// const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 const router = express.Router();
+
+const generateAuthTokenForUser = (user, callback) => {
+  jwt.sign(
+    {
+      name: user.name,
+      userName: user.userName,
+      password: user.password,
+      email: user.email,
+      bio: user.bio,
+      profilePic: user.profilePic,
+    },
+    process.env.HASH_KEY,
+    { expiresIn: "2 days" },
+    (err, token) => {
+      callback(err, {
+        success: true,
+        token: "Bearer " + token,
+      });
+    }
+  );
+};
 
 router.post("/", (req, res) => {
   User.findOne({ userName: req.body.userName })
     .then((user) => {
       if (user) {
         if (bcrypt.compare(req.body.password, user.password)) {
-          res.json(user);
+          generateAuthTokenForUser(user, (error, data) => {
+            res.json({ data, user });
+          });
         } else {
           res.status(500).json("password did not match");
         }

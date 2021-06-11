@@ -18,7 +18,15 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   //deleting the post
   const deletePost = () => {
     axios
-      .post(`${process.env.REACT_APP_SERVER_LINK}/post/delete`, { id })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/delete`,
+        { id },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         refetch();
@@ -34,10 +42,18 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   //toggle like
   const toggleLike = () => {
     axios
-      .post(`${process.env.REACT_APP_SERVER_LINK}/post/toggleLike`, {
-        userId: loggedInUser._id,
-        id,
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/toggleLike`,
+        {
+          userId: loggedInUser._id,
+          id,
+        },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         refetch();
@@ -50,11 +66,19 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   const postComment = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_SERVER_LINK}/post/postComment`, {
-        userId: loggedInUser._id,
-        id,
-        comment,
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/postComment`,
+        {
+          userId: loggedInUser._id,
+          id,
+          comment,
+        },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         refetch();

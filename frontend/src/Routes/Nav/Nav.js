@@ -5,6 +5,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 import SearchForeverTwoToneIcon from "@material-ui/icons/Search";
 
 const Nav = () => {
@@ -26,7 +27,9 @@ const Nav = () => {
   const Logout = () => {
     setAnchorEl(null);
     history.push(`/login`);
-    localStorage.clear();
+    // axios.defaults.headers.common["Authorization"] = "";
+    localStorage.setItem("jwt", "");
+    localStorage.setItem("user", "");
   };
 
   const Profile = () => {
@@ -91,7 +94,7 @@ const Nav = () => {
         }}
       >
         <img
-          src={loggedInUser.profilePic}
+          src={loggedInUser ? loggedInUser.profilePic : ""}
           className="accountPic"
           alt="profilePic"
           onClick={handleClick}
