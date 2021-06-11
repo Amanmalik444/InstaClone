@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import EditIcon from "@material-ui/icons/Edit";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import CancelIcon from "@material-ui/icons/Cancel";
 import DeleteIcon from "@material-ui/icons/DeleteForeverRounded";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import Comment from "./Comment";
@@ -10,10 +15,44 @@ import axios from "axios";
 import "./Post.css";
 
 const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
-  const [liked, setLiked] = useState(true);
   const [comment, setComment] = useState("");
+  const [edittedCaption, setEdittedCaption] = useState("");
+  const [liked, setLiked] = useState(true);
+  const [captionEditing, setCaptionEditing] = useState(false);
+  const [moreOptions, setMoreOptions] = useState(false);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
+
+  //getting like status
+  useEffect(() => {
+    likes.includes(loggedInUser._id) ? setLiked(false) : setLiked(true);
+  }, []);
+
+  //editing the caption
+  const editCaption = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/editCaption`,
+        {
+          id,
+          caption: edittedCaption,
+        },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        refetch();
+      })
+      .catch((err) => console.log(err));
+    e.target.reset();
+    setEdittedCaption("");
+    setCaptionEditing(false);
+  };
 
   //deleting the post
   const deletePost = () => {
@@ -33,11 +72,6 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
       })
       .catch((err) => console.log(err));
   };
-
-  //getting like status
-  useEffect(() => {
-    likes.includes(loggedInUser._id) ? setLiked(false) : setLiked(true);
-  }, []);
 
   //toggle like
   const toggleLike = () => {
@@ -102,7 +136,33 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
               <h3 className="name">{userId.name}</h3>
             </div>
             {loggedInUser._id === userId._id ? (
-              <DeleteIcon style={{ cursor: "pointer" }} onClick={deletePost} />
+              moreOptions === false ? (
+                <MoreVertIcon
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setMoreOptions(true);
+                  }}
+                />
+              ) : (
+                <div>
+                  <DeleteIcon
+                    style={{ cursor: "pointer", marginRight: "10px" }}
+                    // onClick={deletePost}
+                  />
+                  <EditIcon
+                    style={{ cursor: "pointer", marginRight: "10px" }}
+                    onClick={() => {
+                      setCaptionEditing(!captionEditing);
+                    }}
+                  />
+                  <MoreHorizIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setMoreOptions(false);
+                    }}
+                  />
+                </div>
+              )
             ) : (
               ""
             )}
@@ -130,13 +190,45 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
             <p className="likeNumber">likes : {likes.length}</p>
           </div>
 
-          <div className="bottom">
-            <h5 className="userName">
-              {userId.userName}
-              {" : "}
-            </h5>
-            <h5 className="caption">{caption}</h5>
-          </div>
+          {captionEditing === false ? (
+            <div className="bottom">
+              <h5 className="userName">
+                {userId.userName}
+                {" : "}
+              </h5>
+              <h5 className="caption">{caption}</h5>
+            </div>
+          ) : (
+            <form onSubmit={editCaption}>
+              <TextField
+                placeholder={caption}
+                onChange={(e) => {
+                  setEdittedCaption(e.target.value);
+                }}
+                style={{
+                  marginLeft: "2vh",
+                  width: "36vh",
+                  textAlign: "center",
+                  // marginBottom: "1vh",
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <CancelIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setCaptionEditing(false);
+                        }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button type="submit" style={{ display: "none" }}>
+                edit
+              </Button>
+            </form>
+          )}
           {comments.map((comm) => (
             <Comment
               comment={comm}
