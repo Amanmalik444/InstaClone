@@ -6,7 +6,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import axios from "axios";
 import SearchForeverTwoToneIcon from "@material-ui/icons/Search";
 
 const Nav = () => {

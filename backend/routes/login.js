@@ -36,13 +36,16 @@ router.post("/", (req, res) => {
   User.findOne({ userName: req.body.userName })
     .then((user) => {
       if (user) {
-        if (bcrypt.compare(req.body.password, user.password)) {
-          generateAuthTokenForUser(user, (error, data) => {
-            res.json({ data, user });
-          });
-        } else {
-          res.status(500).json("password did not match");
-        }
+        bcrypt.compare(req.body.password, user.password).then((validPass) => {
+          if (validPass) {
+            generateAuthTokenForUser(user, (error, data) => {
+              console.log("logged In");
+              res.json({ data, user });
+            });
+          } else {
+            res.status(500).json("password do not match");
+          }
+        });
       } else {
         res.status(500).json("user does not exist");
       }
