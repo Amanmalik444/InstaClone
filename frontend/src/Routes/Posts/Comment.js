@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DeleteIconOutline from "@material-ui/icons/DeleteOutline";
 import axios from "axios";
@@ -11,10 +11,18 @@ const Comment = ({ comment, loggedInUser, refetch, postId }) => {
   const deleteComment = () => {
     setDeletingComment(true);
     axios
-      .post(`${process.env.REACT_APP_SERVER_LINK}/post/deleteComment`, {
-        commentId: comment._id,
-        postId,
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/deleteComment`,
+        {
+          commentId: comment._id,
+          postId,
+        },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         refetch();

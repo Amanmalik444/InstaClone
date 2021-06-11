@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const passport = require("passport");
+const local = require("passport-local").Strategy;
 require("dotenv/config");
 
 const app = express();
@@ -14,22 +16,34 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-//register route
-app.use("/register", registerRoute);
-
-//post route
-app.use("/post", postRoute);
-
-// profile route
-app.use("/profile", profileRoute);
+app.use(passport.initialize());
+require("./utils/passport")(passport);
 
 //login route
 app.use("/login", loginRoute);
 
+//register route
+app.use("/register", registerRoute);
+
+//post route
+app.use("/post", passport.authenticate("jwt", { session: false }), postRoute);
+
+// profile route
+app.use(
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
+  profileRoute
+);
+
 mongoose.connect(
   process.env.DB_CONNECTION,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
-  () => {
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
+  (err) => {
+    if (err) throw err;
     console.log("dbConnected");
   }
 );

@@ -22,7 +22,9 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("jwt", JSON.stringify(res.data.data.token));
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        // axios.defaults.headers.common["Authorization"] = res.data.data.token;
         history.push("/profile");
         setLoading(false);
       })
@@ -67,7 +69,6 @@ const Login = () => {
             }}
           >
             <TextField
-              id="outlined-basic"
               label="Enter Username"
               variant="outlined"
               onChange={(e) => setUserName(e.target.value)}
@@ -75,7 +76,6 @@ const Login = () => {
               style={{ margin: "10px" }}
             />
             <TextField
-              id="outlined-basic"
               type="password"
               label="Enter Password"
               variant="outlined"

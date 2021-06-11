@@ -9,18 +9,30 @@ const Profile = () => {
 
   // fetching all posts
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_SERVER_LINK}/post/`).then((res) => {
-      // console.log(res.data);
-      setPosts(res.data);
-      setPostsFetched(true);
-    });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("jwt")),
+        },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        setPosts(res.data);
+        setPostsFetched(true);
+      });
   }, []);
 
   const refetch = () => {
-    axios.get(`${process.env.REACT_APP_SERVER_LINK}/post/`).then((res) => {
-      setPosts(res.data);
-      setPostsFetched(true);
-    });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("jwt")),
+        },
+      })
+      .then((res) => {
+        setPosts(res.data);
+        setPostsFetched(true);
+      });
   };
 
   //checking the user via localstorage
