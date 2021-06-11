@@ -51,6 +51,14 @@ router.post("/delete", (req, res) => {
     });
 });
 
+//editting caption
+router.post("/editCaption", (req, res) => {
+  post.findById(req.body.id).then((p) => {
+    p.caption = req.body.caption;
+    p.save().then((post) => res.json(post));
+  });
+});
+
 //toggleLike
 router.post("/toggleLike", (req, res) => {
   post

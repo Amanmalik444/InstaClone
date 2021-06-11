@@ -5,6 +5,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from "axios";
 import SearchForeverTwoToneIcon from "@material-ui/icons/Search";
 
@@ -41,7 +42,6 @@ const Nav = () => {
     <div className="nav">
       <div
         style={{
-          width: "32.5%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -60,34 +60,35 @@ const Nav = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          width: "35%",
-          // height: "10%",
         }}
       >
-        <SearchForeverTwoToneIcon
+        {/* <SearchForeverTwoToneIcon
           style={{
             marginRight: "3px",
             marginLeft: "3px",
             // height: "58px",
           }}
-        />
+        /> */}
         <TextField
           id="filled-search"
-          label="Search"
+          // label="Search"
           type="search"
-          placeholder="Search by Name, Username or Caption"
+          placeholder="Search Posts"
           variant="standard"
           onChange={(e) => {
             history.push("/home", { searchValue: e.target.value });
           }}
-          style={{
-            marginBottom: "17px",
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchForeverTwoToneIcon />
+              </InputAdornment>
+            ),
           }}
         />
       </div>
       <div
         style={{
-          width: "32.5%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
