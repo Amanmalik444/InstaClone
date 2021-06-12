@@ -126,7 +126,7 @@ const Detail = ({
       }}
     >
       <Snackbar
-        autoHideDuration={2000}
+        autoHideDuration={2200}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left",
