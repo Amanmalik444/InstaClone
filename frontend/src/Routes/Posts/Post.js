@@ -118,6 +118,8 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
 
   //posting comments
   const postComment = (e) => {
+    setmessageToShowInSnackBar("Posting comment");
+    setOpenSnackbar(true);
     e.preventDefault();
     axios
       .post(
