@@ -27,7 +27,6 @@ const Nav = () => {
   const Logout = () => {
     setAnchorEl(null);
     history.push(`/login`);
-    // axios.defaults.headers.common["Authorization"] = "";
     localStorage.setItem("jwt", "");
     localStorage.setItem("user", "");
   };
@@ -38,7 +37,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="nav">
+    <div className="nav" data-aos="slide-down" data-aos-duration="600">
       <div
         style={{
           display: "flex",
@@ -61,13 +60,6 @@ const Nav = () => {
           justifyContent: "center",
         }}
       >
-        {/* <SearchForeverTwoToneIcon
-          style={{
-            marginRight: "3px",
-            marginLeft: "3px",
-            // height: "58px",
-          }}
-        /> */}
         <TextField
           id="filled-search"
           // label="Search"
@@ -84,6 +76,7 @@ const Nav = () => {
               </InputAdornment>
             ),
           }}
+          style={{ width: "80%" }}
         />
       </div>
       <div

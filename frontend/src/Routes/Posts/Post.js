@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import Comment from "./Comment";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./Post.css";
 
 const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
@@ -22,9 +24,10 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   const [moreOptions, setMoreOptions] = useState(false);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
-
+  AOS.init({ duration: 2000 });
   //getting like status
   useEffect(() => {
+    AOS.init({ duration: 2000 });
     likes.includes(loggedInUser._id) ? setLiked(false) : setLiked(true);
   }, []);
 
@@ -124,7 +127,12 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
 
   return (
     <div className="container">
-      <div className="posts">
+      <div
+        className="posts"
+        data-aos="slide-up"
+        data-aos-duration="200"
+        data-aos-anchor-placement="bottom"
+      >
         <div className="post">
           <div className="header">
             <div className="picName">
