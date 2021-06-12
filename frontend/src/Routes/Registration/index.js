@@ -3,11 +3,11 @@ import Logo from "../../utils/Logo.png";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Snackbar } from "@material-ui/core";
 import Input from "@material-ui/core/Input";
 import InsertPhotoIconOutlined from "@material-ui/icons/InsertPhotoOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
-// import { toast } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -18,9 +18,13 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingValue, setLoadingValue] = useState(0);
+  const [messageToShowInSnackBar, setmessageToShowInSnackBar] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const history = useHistory();
 
   const Submit = (e) => {
+    setmessageToShowInSnackBar("Registering");
+    setOpenSnackbar(true);
     setLoading(true);
     setLoadingValue(10);
     e.preventDefault();
@@ -52,11 +56,15 @@ const Register = () => {
             history.push("/login");
           })
           .catch((err) => {
+            setmessageToShowInSnackBar(err.response.data);
+            setOpenSnackbar(true);
             console.log(err);
           });
         console.log("uploaded");
       })
       .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
         console.log(err);
         setLoadingValue(0);
         setLoading(false);
@@ -85,6 +93,18 @@ const Register = () => {
           paddingRight: "10%",
         }}
       >
+        <Snackbar
+          autoHideDuration={2000}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={openSnackbar}
+          onClose={() => {
+            setOpenSnackbar(false);
+          }}
+          message={messageToShowInSnackBar}
+        />
         <img src={Logo} style={{ height: "15vh" }} alt="instagram" />
         <form onSubmit={Submit}>
           <div
@@ -96,7 +116,6 @@ const Register = () => {
           >
             <label htmlFor="uploadPhoto">
               <Input
-                // label="Enter Image"
                 type="file"
                 id="uploadPhoto"
                 name="image"

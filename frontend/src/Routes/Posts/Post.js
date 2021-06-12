@@ -8,6 +8,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import DeleteIcon from "@material-ui/icons/DeleteForeverRounded";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { Snackbar } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import Comment from "./Comment";
@@ -22,6 +23,8 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   const [liked, setLiked] = useState(true);
   const [captionEditing, setCaptionEditing] = useState(false);
   const [moreOptions, setMoreOptions] = useState(false);
+  const [messageToShowInSnackBar, setmessageToShowInSnackBar] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
   AOS.init({ duration: 2000 });
@@ -51,7 +54,11 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         console.log(res);
         refetch();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
+        console.log(err);
+      });
     e.target.reset();
     setEdittedCaption("");
     setCaptionEditing(false);
@@ -70,10 +77,16 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         }
       )
       .then((res) => {
+        setmessageToShowInSnackBar("Post deleted");
+        setOpenSnackbar(true);
         console.log(res);
         refetch();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
+        console.log(err);
+      });
   };
 
   //toggle like
@@ -96,7 +109,11 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         refetch();
         setLiked(!liked);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
+        console.log(err);
+      });
   };
 
   //posting comments
@@ -120,13 +137,29 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         console.log(res);
         refetch();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
+        console.log(err);
+      });
     e.target.reset();
     setComment("");
   };
 
   return (
     <div className="container">
+      <Snackbar
+        autoHideDuration={2000}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={openSnackbar}
+        onClose={() => {
+          setOpenSnackbar(false);
+        }}
+        message={messageToShowInSnackBar}
+      />
       <div
         className="posts"
         data-aos="slide-up"
@@ -155,7 +188,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
                 <div>
                   <DeleteIcon
                     style={{ cursor: "pointer", marginRight: "10px" }}
-                    // onClick={deletePost}
+                    onClick={deletePost}
                   />
                   <EditIcon
                     style={{ cursor: "pointer", marginRight: "10px" }}
