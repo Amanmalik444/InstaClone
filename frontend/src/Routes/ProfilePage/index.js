@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Detail from "./Detail";
 import axios from "axios";
 import Post from "../Posts/Post";
+import { Redirect } from "react-router-dom";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
@@ -41,6 +42,10 @@ const Profile = () => {
   const PostsToShow = posts.filter(
     (post) => post.userId._id === loggedInUser._id
   );
+
+  if (!localStorage.getItem("jwt")) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <div style={{ marginTop: "0vh" }}>

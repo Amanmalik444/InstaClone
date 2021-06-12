@@ -43,6 +43,7 @@ const Nav = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          width: "30%",
         }}
       >
         <img
@@ -58,6 +59,7 @@ const Nav = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
+          width: "50%",
         }}
       >
         <TextField
@@ -84,6 +86,7 @@ const Nav = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          width: "20%",
         }}
       >
         <img
