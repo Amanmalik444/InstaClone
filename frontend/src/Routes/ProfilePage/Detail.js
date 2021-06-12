@@ -6,6 +6,7 @@ import Input from "@material-ui/core/Input";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useHistory } from "react-router-dom";
+import { Snackbar } from "@material-ui/core";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
 const Detail = ({
@@ -26,11 +27,15 @@ const Detail = ({
   const [deleting, setDeleting] = useState(false);
   const [posting, setPosting] = useState(false);
   const [loadingValue, setLoadingValue] = useState(0);
+  const [messageToShowInSnackBar, setmessageToShowInSnackBar] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const history = useHistory();
 
   //uploading a new post
   const Upload = (e) => {
+    setmessageToShowInSnackBar("Uploading your post, please wait");
+    setOpenSnackbar(true);
     setPostsFetched(false);
     setLoading(true);
     setLoadingValue(10);
@@ -62,12 +67,16 @@ const Detail = ({
             }
           )
           .then((res) => {
+            setmessageToShowInSnackBar("Post uploaded, now fetching");
+            setOpenSnackbar(true);
             setLoadingValue(100);
             console.log(res.data);
             refetch();
             setPosting(false);
           })
           .catch((err) => {
+            setmessageToShowInSnackBar(err.response.data);
+            setOpenSnackbar(true);
             console.log(err);
           });
 
@@ -76,6 +85,8 @@ const Detail = ({
         setLoadingValue(100);
       })
       .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
         setLoading(false);
         setLoadingValue(100);
         console.log(err);
@@ -88,9 +99,15 @@ const Detail = ({
     axios
       .post(`${process.env.REACT_APP_SERVER_LINK}/profile/deleteUser`, { id })
       .then((res) => {
+        setmessageToShowInSnackBar("User deleted");
+        setOpenSnackbar(true);
         console.log(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
+        console.log(err);
+      });
     history.push(`/login`);
   };
 
@@ -108,6 +125,18 @@ const Detail = ({
         paddingTop: "13vh",
       }}
     >
+      <Snackbar
+        autoHideDuration={2000}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={openSnackbar}
+        onClose={() => {
+          setOpenSnackbar(false);
+        }}
+        message={messageToShowInSnackBar}
+      />
       <img
         src={pic}
         alt="profilePic"
