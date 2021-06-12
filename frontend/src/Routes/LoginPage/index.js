@@ -24,7 +24,6 @@ const Login = () => {
         console.log(res.data);
         localStorage.setItem("jwt", JSON.stringify(res.data.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        // axios.defaults.headers.common["Authorization"] = res.data.data.token;
         history.push("/profile");
         setLoading(false);
       })
