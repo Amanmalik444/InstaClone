@@ -37,7 +37,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="nav" data-aos="slide-down" data-aos-duration="600">
+    <div className="nav">
       <div
         style={{
           display: "flex",
@@ -78,7 +78,7 @@ const Nav = () => {
               </InputAdornment>
             ),
           }}
-          style={{ width: "80%" }}
+          style={{ width: "84%" }}
         />
       </div>
       <div

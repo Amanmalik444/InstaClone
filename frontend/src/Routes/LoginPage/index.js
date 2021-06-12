@@ -3,6 +3,7 @@ import Logo from "../../utils/Logo.png";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Snackbar } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
@@ -10,9 +11,13 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [messageToShowInSnackBar, setmessageToShowInSnackBar] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const history = useHistory();
 
   const Submit = (e) => {
+    setmessageToShowInSnackBar("Logging In");
+    setOpenSnackbar(true);
     setLoading(true);
     e.preventDefault();
     axios
@@ -21,6 +26,8 @@ const Login = () => {
         password,
       })
       .then((res) => {
+        setmessageToShowInSnackBar("logged In");
+        setOpenSnackbar(true);
         console.log(res.data);
         localStorage.setItem("jwt", JSON.stringify(res.data.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -28,6 +35,8 @@ const Login = () => {
         setLoading(false);
       })
       .catch((err) => {
+        setmessageToShowInSnackBar(err.response.data);
+        setOpenSnackbar(true);
         console.log(err);
         setLoading(false);
       });
@@ -57,6 +66,19 @@ const Login = () => {
           border: "1px solid rgba(0,0,0,0.2)",
         }}
       >
+        <Snackbar
+          autoHideDuration={2000}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={openSnackbar}
+          onClose={() => {
+            setOpenSnackbar(false);
+          }}
+          message={messageToShowInSnackBar}
+        />
+        ;
         <img src={Logo} style={{ width: "60%" }} alt="instagram" />
         <form onSubmit={Submit}>
           <div
