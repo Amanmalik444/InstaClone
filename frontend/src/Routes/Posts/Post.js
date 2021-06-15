@@ -164,7 +164,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
       />
       <div
         className="posts"
-        data-aos="slide-up"
+        data-aos="slide-right"
         data-aos-duration="600"
         data-aos-anchor-placement="bottom"
       >

@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
-const local = require("passport-local").Strategy;
 require("dotenv/config");
+require("./utils/passport")(passport);
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -12,12 +12,10 @@ const postRoute = require("./routes/post");
 const profileRoute = require("./routes/profile");
 const loginRoute = require("./routes/login");
 
+app.use(passport.initialize());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-
-app.use(passport.initialize());
-require("./utils/passport")(passport);
 
 //login route
 app.use("/login", loginRoute);

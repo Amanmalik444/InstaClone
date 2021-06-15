@@ -97,18 +97,26 @@ const Detail = ({
 
   const deleteUser = () => {
     axios
-      .post(`${process.env.REACT_APP_SERVER_LINK}/profile/deleteUser`, { id })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/profile/deleteUser`,
+        { id },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         setmessageToShowInSnackBar("User deleted");
         setOpenSnackbar(true);
         console.log(res);
+        history.push(`/login`);
       })
       .catch((err) => {
         setmessageToShowInSnackBar(err.response.data);
         setOpenSnackbar(true);
         console.log(err);
       });
-    history.push(`/login`);
   };
 
   return (
