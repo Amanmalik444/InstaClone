@@ -78,7 +78,6 @@ const Login = () => {
           }}
           message={messageToShowInSnackBar}
         />
-        ;
         <img src={Logo} style={{ width: "60%" }} alt="instagram" />
         <form onSubmit={Submit}>
           <div
