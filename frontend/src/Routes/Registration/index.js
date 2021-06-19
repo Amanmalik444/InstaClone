@@ -80,6 +80,7 @@ const Register = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "rgb(240, 240, 240)",
       }}
     >
       <div
@@ -88,9 +89,10 @@ const Register = () => {
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
+          width: "50vh",
           border: "1px solid rgba(0,0,0,0.2)",
-          paddingLeft: "10%",
-          paddingRight: "10%",
+          backgroundColor: "rgb(255, 255, 255)",
+          boxShadow: "8px 8px 15px 5px rgba(0, 0, 0, 0.2)",
         }}
       >
         <Snackbar
@@ -105,7 +107,11 @@ const Register = () => {
           }}
           message={messageToShowInSnackBar}
         />
-        <img src={Logo} style={{ height: "15vh" }} alt="instagram" />
+        <img
+          src={Logo}
+          style={{ height: "15vh", marginTop: "2vh" }}
+          alt="instagram"
+        />
         <form onSubmit={Submit}>
           <div
             style={{
@@ -133,7 +139,6 @@ const Register = () => {
                 style={{
                   margin: "1vh",
                   width: "210px",
-                  marginTop: "2vh",
                 }}
               >
                 Profile picture <InsertPhotoIconOutlined />

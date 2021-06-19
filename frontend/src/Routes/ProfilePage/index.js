@@ -66,19 +66,21 @@ const Profile = () => {
           marginTop: "7vh",
         }}
       >
-        {PostsToShow.map((post) => (
-          <Post
-            userId={post.userId}
-            image={post.image}
-            likes={post.likes}
-            caption={post.caption}
-            comments={post.comments}
-            id={post._id}
-            posts={posts}
-            setPosts={setPosts}
-            refetch={refetch}
-          />
-        ))}
+        <div style={{ display: "flex", flexFlow: "row wrap" }}>
+          {PostsToShow.map((post) => (
+            <Post
+              userId={post.userId}
+              image={post.image}
+              likes={post.likes}
+              caption={post.caption}
+              comments={post.comments}
+              id={post._id}
+              posts={posts}
+              setPosts={setPosts}
+              refetch={refetch}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
