@@ -46,12 +46,12 @@ const Login = () => {
   return (
     <div
       style={{
-        height: "80vh",
+        height: "100vh",
         width: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: "10vh",
+        backgroundColor: "rgb(240, 240, 240)",
       }}
     >
       <div
@@ -59,11 +59,12 @@ const Login = () => {
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
-          margin: "10vh",
-          height: "80%",
+          height: "60vh",
           width: "40vh",
           alignItems: "center",
           border: "1px solid rgba(0,0,0,0.2)",
+          backgroundColor: "rgb(255, 255, 255)",
+          boxShadow: "8px 8px 15px 5px rgba(0, 0, 0, 0.2)",
         }}
       >
         <Snackbar
@@ -78,7 +79,7 @@ const Login = () => {
           }}
           message={messageToShowInSnackBar}
         />
-        <img src={Logo} style={{ width: "60%" }} alt="instagram" />
+        <img src={Logo} style={{ height: "15vh" }} alt="instagram" />
         <form onSubmit={Submit}>
           <div
             style={{
