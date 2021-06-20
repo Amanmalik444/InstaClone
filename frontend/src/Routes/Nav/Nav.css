@@ -4,12 +4,12 @@
 
 .nav {
   position: fixed;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.571);
+  backdrop-filter: blur(3px);
   height: 58px;
-  width: 94%;
-  /* padding-top: 2px; */
-  margin-left: 2%;
-  margin-right: 4%;
+  width: 100%;
+  /* margin-left: 2%; */
+  /* margin-right: 4%; */
   border-bottom: 1px solid rgb(0, 0, 0, 0.5);
   display: flex;
   justify-content: space-around;

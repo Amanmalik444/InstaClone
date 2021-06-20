@@ -7,7 +7,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useHistory } from "react-router-dom";
 import { Snackbar } from "@material-ui/core";
-import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
 
 const Detail = ({
   name,
@@ -129,7 +128,7 @@ const Detail = ({
         marginLeft: "4%",
         marginRight: "4%",
         borderBottom: "1px solid rgba(0,0,0,0.5)",
-        padding: "5vh",
+        padding: "1vh",
         paddingTop: "13vh",
       }}
     >
@@ -153,7 +152,6 @@ const Detail = ({
           height: "30vh",
           width: "30vh",
           borderRadius: "100%",
-          // marginTop: "8vh",
         }}
       />
       <h1>{name}</h1>

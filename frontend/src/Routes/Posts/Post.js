@@ -162,12 +162,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         }}
         message={messageToShowInSnackBar}
       />
-      <div
-        className="posts"
-        data-aos="slide-right"
-        data-aos-duration="600"
-        data-aos-anchor-placement="bottom"
-      >
+      <div className="posts">
         <div className="post">
           <div className="header">
             <div className="picName">
