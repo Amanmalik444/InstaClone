@@ -8,14 +8,21 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
   const [postsFetched, setPostsFetched] = useState(false);
 
+  //checking the user via localstorage
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
+
   // fetching all posts
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("jwt")),
-        },
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/getUserPost`,
+        { userId: loggedInUser._id },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         // console.log(res.data);
         setPosts(res.data);
@@ -25,23 +32,21 @@ const Profile = () => {
 
   const refetch = () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("jwt")),
-        },
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/getUserPost`,
+        { userId: loggedInUser._id },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
+        // console.log(res.data);
         setPosts(res.data);
         setPostsFetched(true);
       });
   };
-
-  //checking the user via localstorage
-  const loggedInUser = JSON.parse(localStorage.getItem("user"));
-
-  const PostsToShow = posts.filter(
-    (post) => post.userId._id === loggedInUser._id
-  );
 
   if (!localStorage.getItem("jwt")) {
     return <Redirect to="/login" />;
@@ -67,7 +72,7 @@ const Profile = () => {
         }}
       >
         <div style={{ display: "flex", flexFlow: "row wrap" }}>
-          {PostsToShow.map((post) => (
+          {posts.map((post) => (
             <Post
               userId={post.userId}
               image={post.image}

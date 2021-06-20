@@ -16,6 +16,19 @@ router.get("/", (req, res) => {
     });
 });
 
+//get unique user's post
+router.post("/getUserPost", (req, res) => {
+  post
+    .find({ userId: req.body.userId })
+    .populate("userId")
+    .populate("comments.userId")
+    .sort({ createdAt: "desc" })
+    .exec()
+    .then((post) => {
+      res.json(post);
+    });
+});
+
 //post request
 router.post("/", (req, res) => {
   const { userId, image, caption } = req.body;
