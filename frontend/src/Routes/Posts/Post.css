@@ -3,25 +3,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.5s;
-  margin-bottom: 7vh;
 }
 
 .posts {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 7vh;
+  padding-bottom: 1vh;
+  width: 40vh;
   border-radius: 15px;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.415);
   transition: 0.5s;
-  padding-bottom: 1vh;
-  z-index: 1500;
-  background-color: white;
 }
 
 .post {
-  height: 100%;
+  /* height: 100%; */
   transition: 0.5s;
+  /* margin: 1vh; */
 }
 
 .header {
@@ -106,16 +105,17 @@
 .commenttingBox {
   display: flex;
   flex-direction: row;
-  transition: 0.5s;
   align-items: center;
   justify-content: space-evenly;
   margin-top: 1vh;
+  /* border-bottom: 1px solid rgba(109, 109, 109, 0.5); */
 }
 
 .commentBox {
   display: flex;
   flex-direction: row;
+  /* width: 40vh; */
   align-items: center;
   justify-content: flex-end;
-  transition: 0.5s;
+  /* border-bottom: 1px solid rgba(109, 109, 109, 0.5); */
 }
