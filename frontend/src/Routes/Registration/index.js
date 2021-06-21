@@ -77,6 +77,7 @@ const Register = () => {
     <div
       style={{
         height: "100vh",
+        width: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -89,7 +90,7 @@ const Register = () => {
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
-          width: "50vh",
+          width: "350px",
           border: "1px solid rgba(0,0,0,0.2)",
           backgroundColor: "rgb(255, 255, 255)",
           boxShadow: "8px 8px 15px 5px rgba(0, 0, 0, 0.2)",

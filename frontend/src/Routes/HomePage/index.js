@@ -49,7 +49,7 @@ const HomePage = () => {
   return (
     <div
       style={{
-        paddingTop: "12vh",
+        paddingTop: "15vh",
       }}
       data-aos="slide-right"
       data-aos-duration="600"
@@ -57,17 +57,19 @@ const HomePage = () => {
     >
       {postsFetched ? (
         searchedPosts.map((post) => (
-          <Post
-            userId={post.userId}
-            image={post.image}
-            likes={post.likes}
-            caption={post.caption}
-            id={post._id}
-            posts={posts}
-            setPosts={setPosts}
-            refetch={refetch}
-            comments={post.comments}
-          />
+          <div style={{ marginBottom: "70px" }}>
+            <Post
+              userId={post.userId}
+              image={post.image}
+              likes={post.likes}
+              caption={post.caption}
+              id={post._id}
+              posts={posts}
+              setPosts={setPosts}
+              refetch={refetch}
+              comments={post.comments}
+            />
+          </div>
         ))
       ) : (
         <CircularProgress style={{ marginLeft: "49%", marginTop: "35vh" }} />
