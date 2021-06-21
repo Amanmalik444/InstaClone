@@ -72,7 +72,16 @@ const HomePage = () => {
           </div>
         ))
       ) : (
-        <CircularProgress style={{ marginLeft: "49%", marginTop: "35vh" }} />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "70vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
       )}
     </div>
   );
