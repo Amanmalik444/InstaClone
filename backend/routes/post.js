@@ -4,15 +4,21 @@ const post = require("../models/post");
 const router = express.Router();
 
 //get request
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   post
     .find()
     .populate("userId")
     .populate("comments.userId")
     .sort({ createdAt: "desc" })
     .exec()
-    .then((post) => {
-      res.json(post);
+    .then((posts) => {
+      posts = posts.filter(
+        (post) =>
+          post.userId._id.toString() === req.body.userId ||
+          post.userId.followers.includes(req.body.userId)
+      );
+      console.log(posts);
+      res.json(posts);
     });
 });
 

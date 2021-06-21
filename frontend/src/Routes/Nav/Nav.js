@@ -1,39 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Nav.css";
 import Logo from "../../utils/Logo.png";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router-dom";
+import MenuList from "@material-ui/core/MenuList";
 import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SearchForeverTwoToneIcon from "@material-ui/icons/Search";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Popper from "@material-ui/core/Popper";
 
 const Nav = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //checking the user via localstorage
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const history = useHistory();
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const Logout = () => {
-    setAnchorEl(null);
+    setOpen(false);
     history.push(`/login`);
     localStorage.setItem("jwt", "");
     localStorage.setItem("user", "");
   };
 
   const Profile = () => {
-    setAnchorEl(null);
+    setOpen(false);
     history.push(`/Profile`);
+  };
+
+  const Follow = () => {
+    setOpen(false);
+    history.push(`/Follow`);
   };
 
   return (
@@ -64,7 +77,6 @@ const Nav = () => {
       >
         <TextField
           id="filled-search"
-          // label="Search"
           type="search"
           placeholder="Search Posts"
           variant="standard"
@@ -93,19 +105,68 @@ const Nav = () => {
           src={loggedInUser ? loggedInUser.profilePic : ""}
           className="accountPic"
           alt="profilePic"
-          onClick={handleClick}
+          ref={anchorRef}
+          onClick={handleToggle}
         />
       </div>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
       >
-        <MenuItem onClick={Profile}>Profile</MenuItem>
-        <MenuItem onClick={Logout}>Logout</MenuItem>
-      </Menu>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList autoFocusItem={open} id="menu-list-grow">
+                  <MenuItem
+                    onClick={Profile}
+                    style={{
+                      display: "flex",
+                      gap: "10%",
+                      width: "108px",
+                    }}
+                  >
+                    <AccountCircleIcon /> Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={Follow}
+                    style={{
+                      display: "flex",
+                      gap: "10%",
+                      width: "108px",
+                    }}
+                  >
+                    <PersonAddIcon /> Follow
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={Logout}
+                    style={{
+                      display: "flex",
+                      gap: "10%",
+                      width: "108px",
+                      borderTop: "1px solid rgba(100,100,100,0.3)",
+                    }}
+                  >
+                    <ExitToAppIcon />
+                    Logout
+                  </MenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </div>
   );
 };

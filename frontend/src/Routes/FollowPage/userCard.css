@@ -1,0 +1,46 @@
+.userCardComplete {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  min-width: 100%;
+}
+
+.userCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 64vw;
+}
+
+.userPic {
+  object-fit: cover;
+  height: 20vw;
+  width: 20vw;
+  max-width: 20vh;
+  max-height: 20vh;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 5%;
+  padding-bottom: 1vh;
+}
+
+.userN {
+  color: rgb(105, 104, 104);
+  text-transform: uppercase;
+}
+
+.userUN {
+  /* font-size: 25px; */
+}
+.userButton {
+  width: 25%;
+  max-width: 180px;
+}
