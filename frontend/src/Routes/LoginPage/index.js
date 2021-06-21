@@ -47,7 +47,7 @@ const Login = () => {
     <div
       style={{
         height: "100vh",
-        width: "100%",
+        width: "100vw",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -59,8 +59,8 @@ const Login = () => {
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
-          height: "60vh",
-          width: "40vh",
+          height: "450px",
+          width: "300px",
           alignItems: "center",
           border: "1px solid rgba(0,0,0,0.2)",
           backgroundColor: "rgb(255, 255, 255)",
@@ -79,7 +79,7 @@ const Login = () => {
           }}
           message={messageToShowInSnackBar}
         />
-        <img src={Logo} style={{ height: "15vh" }} alt="instagram" />
+        <img src={Logo} style={{ height: "100px" }} alt="instagram" />
         <form onSubmit={Submit}>
           <div
             style={{
@@ -121,7 +121,7 @@ const Login = () => {
               style={{
                 cursor: "pointer",
                 textAlign: "center",
-                marginTop: "1vh",
+                marginTop: "30px",
               }}
               onClick={() => {
                 history.push("/register");
