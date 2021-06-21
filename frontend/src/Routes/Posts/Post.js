@@ -215,7 +215,10 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
               likeIconOnImage ? "likeIconOnImage" : "likeIconOnImage hidden"
             }
           >
-            <FavoriteIcon fontSize="large" />
+            <FavoriteIcon
+              fontSize="large"
+              style={{ height: "70px", width: "70px" }}
+            />
           </div>
           <img
             src={image}

@@ -72,9 +72,6 @@ const Profile = () => {
             position: "fixed",
             zIndex: "1000",
           }}
-          // onClick={() => {
-          //   if (showPost) setShowPost(!showPost);
-          // }}
         >
           <Post
             userId={postToShow.userId}

@@ -48,6 +48,7 @@ const Register = () => {
             password,
             bio,
             profilePic: res.data.url,
+            followers: [],
           })
           .then((res) => {
             setLoadingValue(0);
@@ -122,7 +123,7 @@ const Register = () => {
             }}
           >
             <label htmlFor="uploadPhoto">
-              <Input
+              <input
                 type="file"
                 id="uploadPhoto"
                 name="image"

@@ -230,7 +230,7 @@ const Detail = ({
             }}
           >
             <label htmlFor="uploadPhoto">
-              <Input
+              <input
                 // label="Enter Image"
                 type="file"
                 id="uploadPhoto"

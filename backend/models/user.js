@@ -29,6 +29,12 @@ const userSchema = new schema(
     profilePic: {
       type: String,
     },
+    followers: [
+      {
+        type: schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
     // tokens: [
     //   {
     //     token: {

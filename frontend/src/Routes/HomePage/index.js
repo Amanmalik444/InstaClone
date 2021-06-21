@@ -10,15 +10,20 @@ const HomePage = () => {
   const location = useLocation();
 
   const searchValue = location.state ? location.state.searchValue : "";
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   // fetching all posts
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("jwt")),
-        },
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/`,
+        { userId: loggedInUser._id },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
       .then((res) => {
         setPosts(res.data);
         setPostsFetched(true);
