@@ -54,14 +54,6 @@
   color: rgb(34, 34, 34);
 }
 
-.image {
-  object-fit: cover;
-  height: 285px;
-  width: 285px;
-  cursor: pointer;
-  transition: 0.5s;
-}
-
 .likes {
   display: flex;
   flex-direction: row;
@@ -112,4 +104,35 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+}
+
+.likeIconOnImage {
+  height: 285px;
+  width: 285px;
+  transition: 0.35s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.476);
+  color: white;
+}
+
+.hidden {
+  opacity: 0;
+  transition: 0.35s;
+}
+
+.image {
+  object-fit: cover;
+  height: 285px;
+  width: 285px;
+  cursor: pointer;
+  transition: 0.5s;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

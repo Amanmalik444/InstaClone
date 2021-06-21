@@ -25,6 +25,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   const [moreOptions, setMoreOptions] = useState(false);
   const [messageToShowInSnackBar, setmessageToShowInSnackBar] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [likeIconOnImage, setLikeIconOnImage] = useState(false);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
   AOS.init({ duration: 2000 });
@@ -91,6 +92,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
 
   //toggle like
   const toggleLike = () => {
+    setLikeIconOnImage(true);
     axios
       .post(
         `${process.env.REACT_APP_SERVER_LINK}/post/toggleLike`,
@@ -108,11 +110,13 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         console.log(res);
         refetch();
         setLiked(!liked);
+        setLikeIconOnImage(false);
       })
       .catch((err) => {
         setmessageToShowInSnackBar(err.response.data);
         setOpenSnackbar(true);
         console.log(err);
+        setLikeIconOnImage(false);
       });
   };
 
@@ -204,6 +208,14 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
             ) : (
               ""
             )}
+          </div>
+          <div
+            onDoubleClick={toggleLike}
+            className={
+              likeIconOnImage ? "likeIconOnImage" : "likeIconOnImage hidden"
+            }
+          >
+            <FavoriteIcon fontSize="large" />
           </div>
           <img
             src={image}
