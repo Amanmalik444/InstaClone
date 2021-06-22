@@ -39,7 +39,6 @@ router.post("/", (req, res) => {
         bcrypt.compare(req.body.password, user.password).then((validPass) => {
           if (validPass) {
             generateAuthTokenForUser(user, (error, data) => {
-              console.log("logged In");
               res.json({ data, user });
             });
           } else {

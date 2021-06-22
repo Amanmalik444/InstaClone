@@ -39,12 +39,19 @@ const HomePage = () => {
 
   const refetch = () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_LINK}/post/`, {
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("jwt")),
-        },
-      })
-      .then((res) => setPosts(res.data));
+      .post(
+        `${process.env.REACT_APP_SERVER_LINK}/post/`,
+        { userId: loggedInUser._id },
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("jwt")),
+          },
+        }
+      )
+      .then((res) => {
+        setPosts(res.data);
+        setPostsFetched(true);
+      });
   };
 
   if (!localStorage.getItem("jwt")) {
@@ -56,9 +63,6 @@ const HomePage = () => {
       style={{
         paddingTop: "15vh",
       }}
-      data-aos="slide-right"
-      data-aos-duration="600"
-      data-aos-anchor-placement="bottom"
     >
       {postsFetched ? (
         searchedPosts.map((post) => (

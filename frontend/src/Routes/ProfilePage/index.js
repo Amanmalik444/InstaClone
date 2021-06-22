@@ -102,6 +102,7 @@ const Profile = () => {
           id={loggedInUser._id}
           bio={loggedInUser.bio}
           pic={loggedInUser.profilePic}
+          followers={loggedInUser.followers}
           posts={posts}
           setPosts={setPosts}
           refetch={refetch}
@@ -126,7 +127,9 @@ const Profile = () => {
               ))}
             </div>
           ) : (
-            <CircularProgress style={{ marginTop: "5vh" }} />
+            <CircularProgress
+              style={{ marginTop: "5vh", marginBottom: "5vh" }}
+            />
           )}
         </div>
       </div>

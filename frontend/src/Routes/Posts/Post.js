@@ -245,10 +245,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
 
           {captionEditing === false ? (
             <div className="bottom">
-              <h5 className="userName">
-                {userId.userName}
-                {" : "}
-              </h5>
+              <h5 className="userName">{userId.userName}:</h5>
               <h5 className="caption">{caption}</h5>
             </div>
           ) : (

@@ -17,7 +17,6 @@ router.post("/", (req, res) => {
           post.userId._id.toString() === req.body.userId ||
           post.userId.followers.includes(req.body.userId)
       );
-      console.log(posts);
       res.json(posts);
     });
 });
@@ -36,7 +35,7 @@ router.post("/getUserPost", (req, res) => {
 });
 
 //post request
-router.post("/", (req, res) => {
+router.post("/newPost", (req, res) => {
   const { userId, image, caption } = req.body;
   const newPost = new post({
     userId,
@@ -61,7 +60,6 @@ router.post("/delete", (req, res) => {
   post
     .findByIdAndRemove(req.body.id)
     .then((p) => {
-      console.log(p);
       res.json(p);
     })
     .catch((err) => {
@@ -85,15 +83,11 @@ router.post("/toggleLike", (req, res) => {
     // .populate("likes")
     .then((p) => {
       if (p.likes.includes(req.body.userId)) {
-        console.log(p.likes, req.body.userId, "before dislike");
         p.likes = p.likes.filter((like) => like.toString() !== req.body.userId);
         // p={...p, likes: p.likes.filter(like => like!== req.body.userId)}
         // p.likes.pop(req.body.userId)
-        console.log(p.likes, req.body.userId, "after dislike");
       } else {
-        console.log(p.likes, req.body.userId, "before like");
         p.likes.push(req.body.userId);
-        console.log(p.likes, req.body.userId, "after like");
       }
       p.save().then((post) => res.json(post));
     });
@@ -102,9 +96,7 @@ router.post("/toggleLike", (req, res) => {
 //posting comment
 router.post("/postComment", (req, res) => {
   post.findById(req.body.id).then((p) => {
-    console.log(p.comments, req.body.userId, "before comment");
     p.comments.push({ userId: req.body.userId, text: req.body.comment });
-    console.log(p.comments, req.body.userId, "after comment");
     p.save().then((post) => res.json(post));
   });
 });
@@ -112,11 +104,9 @@ router.post("/postComment", (req, res) => {
 //deleting comment
 router.post("/deleteComment", (req, res) => {
   post.findById(req.body.postId).then((p) => {
-    console.log(p.comments, "before deleting");
     p.comments = p.comments.filter(
       (comment) => comment._id.toString() !== req.body.commentId
     );
-    console.log(p.comments, "after deleting");
     p.save().then((post) => res.json(post));
   });
 });
