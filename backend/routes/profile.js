@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
       res.json(user);
     })
     .catch((err) => {
-      console.log("error");
+      console.log(err);
     });
 });
 
@@ -64,15 +64,11 @@ router.post("/toggleFollow", (req, res) => {
     // .populate("likes")
     .then((u) => {
       if (u.followers.includes(req.body.userId)) {
-        console.log(u.followers, req.body.userId, "before unfollow");
         u.followers = u.followers.filter(
           (like) => like.toString() !== req.body.userId
         );
-        console.log(u.followers, req.body.userId, "after unfollow");
       } else {
-        console.log(u.followers, req.body.userId, "before follow");
         u.followers.push(req.body.userId);
-        console.log(u.followers, req.body.userId, "after follow");
       }
       u.save().then((us) => res.json(us));
     });

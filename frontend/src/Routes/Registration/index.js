@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Snackbar } from "@material-ui/core";
-import Input from "@material-ui/core/Input";
 import InsertPhotoIconOutlined from "@material-ui/icons/InsertPhotoOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
@@ -35,7 +34,6 @@ const Register = () => {
     setLoadingValue(35);
     axios
       .post("https://api.cloudinary.com/v1_1/igjmi/image/upload", data)
-      // .then((res) => res.json())
 
       .then((res) => {
         setLoadingValue(100);
@@ -91,7 +89,8 @@ const Register = () => {
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
-          width: "350px",
+          width: "320px",
+          height: "640px",
           border: "1px solid rgba(0,0,0,0.2)",
           backgroundColor: "rgb(255, 255, 255)",
           boxShadow: "8px 8px 15px 5px rgba(0, 0, 0, 0.2)",
@@ -109,11 +108,7 @@ const Register = () => {
           }}
           message={messageToShowInSnackBar}
         />
-        <img
-          src={Logo}
-          style={{ height: "15vh", marginTop: "2vh" }}
-          alt="instagram"
-        />
+        <img src={Logo} style={{ height: "120px" }} alt="instagram" />
         <form onSubmit={Submit}>
           <div
             style={{
@@ -139,7 +134,7 @@ const Register = () => {
                 variant="outlined"
                 component="span"
                 style={{
-                  margin: "1vh",
+                  margin: "6px",
                   width: "210px",
                 }}
               >
@@ -154,7 +149,7 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              style={{ margin: "1vh", width: "210px" }}
+              style={{ margin: "6px", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -163,7 +158,7 @@ const Register = () => {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               required
-              style={{ margin: "1vh", width: "210px" }}
+              style={{ margin: "6px", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -172,7 +167,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ margin: "1vh", width: "210px" }}
+              style={{ margin: "6px", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -181,7 +176,7 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{ margin: "1vh", width: "210px" }}
+              style={{ margin: "6px", width: "210px" }}
             />
             <TextField
               id="outlined-basic"
@@ -190,7 +185,7 @@ const Register = () => {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               required
-              style={{ margin: "1vh", width: "210px" }}
+              style={{ margin: "6px", width: "210px" }}
             />
 
             {loading === true ? (
@@ -200,7 +195,7 @@ const Register = () => {
                 variant="outlined"
                 color="primary"
                 type="submit"
-                style={{ margin: "1vh", width: "105px" }}
+                style={{ margin: "6px", width: "105px" }}
               >
                 Register
               </Button>
@@ -210,8 +205,7 @@ const Register = () => {
               style={{
                 cursor: "pointer",
                 textAlign: "center",
-                marginTop: "1vh",
-                marginBottom: "3vh",
+                marginTop: "6px",
               }}
               onClick={() => {
                 history.push("/login");

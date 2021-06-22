@@ -19,6 +19,7 @@ const Detail = ({
   refetch,
   postsFetched,
   setPostsFetched,
+  followers,
 }) => {
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
@@ -51,7 +52,7 @@ const Detail = ({
         console.log(res.data.url);
         axios
           .post(
-            `${process.env.REACT_APP_SERVER_LINK}/post/`,
+            `${process.env.REACT_APP_SERVER_LINK}/post/newPost`,
             {
               userId: id,
               image: res.data.url,
@@ -144,24 +145,49 @@ const Detail = ({
         }}
         message={messageToShowInSnackBar}
       />
-      <img
-        src={pic}
-        alt="profilePic"
+      <div
         style={{
-          objectFit: "cover",
-          height: "30vh",
-          width: "30vh",
-          borderRadius: "100%",
-        }}
-      />
-      <h1>{name}</h1>
-      <h4
-        style={{
-          color: "rgba(0.5,0.5,0.5,0.5)",
+          display: "flex",
+          flexDirection: "row",
+          gap: "40px",
+          marginBottom: "3vw",
         }}
       >
-        {userName}
-      </h4>
+        <img
+          src={pic}
+          alt="profilePic"
+          style={{
+            objectFit: "cover",
+            width: "31vw",
+            height: "31vw",
+            maxHeight: "30vh",
+            maxWidth: "30vh",
+
+            borderRadius: "100%",
+          }}
+        />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <h1>{name}</h1>
+          <h4
+            style={{
+              color: "rgba(0.5,0.5,0.5,0.8)",
+              marginBottom: "2vw",
+            }}
+          >
+            {followers.length}{" "}
+            {followers.length === 1 ? "follower" : "followers"}
+          </h4>
+          <p
+            style={{
+              color: "rgba(0.5,0.5,0.5,0.8)",
+            }}
+          >
+            {userName}
+          </p>
+
+          <p>{bio} </p>
+        </div>
+      </div>
       {deleting === false ? (
         <Button
           variant="outlined"
@@ -209,15 +235,6 @@ const Detail = ({
           </Button>
         </div>
       )}
-      <p
-        style={{
-          marginTop: "2vh",
-          marginBottom: "2vh",
-        }}
-      >
-        {" "}
-        {bio}{" "}
-      </p>
 
       {posting === true ? (
         <form onSubmit={Upload}>
