@@ -24,7 +24,6 @@ const Comment = ({ comment, loggedInUser, refetch, postId }) => {
         }
       )
       .then((res) => {
-        console.log(res);
         refetch();
         setDeletingComment(false);
       })

@@ -39,7 +39,6 @@ const UserCard = ({
       )
       .then((res) => {
         setFollowed(!followed);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);

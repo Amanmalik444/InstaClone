@@ -37,7 +37,6 @@ const Register = () => {
 
       .then((res) => {
         setLoadingValue(100);
-        console.log(res.data.url);
         axios
           .post(`${process.env.REACT_APP_SERVER_LINK}/register/`, {
             name,
@@ -51,7 +50,6 @@ const Register = () => {
           .then((res) => {
             setLoadingValue(0);
             setLoading(false);
-            console.log(res, "registered");
             history.push("/login");
           })
           .catch((err) => {
@@ -59,7 +57,6 @@ const Register = () => {
             setOpenSnackbar(true);
             console.log(err);
           });
-        console.log("uploaded");
       })
       .catch((err) => {
         setmessageToShowInSnackBar(err.response.data);

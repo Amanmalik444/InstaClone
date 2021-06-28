@@ -28,7 +28,6 @@ const Login = () => {
       .then((res) => {
         setmessageToShowInSnackBar("logged In");
         setOpenSnackbar(true);
-        console.log(res.data);
         localStorage.setItem("jwt", JSON.stringify(res.data.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
         history.push("/profile");
