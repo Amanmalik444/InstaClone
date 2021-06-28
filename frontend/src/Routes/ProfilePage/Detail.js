@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useHistory } from "react-router-dom";
@@ -49,7 +50,6 @@ const Detail = ({
       .post("https://api.cloudinary.com/v1_1/igjmi/image/upload", data)
       .then((res) => {
         setLoadingValue(65);
-        console.log(res.data.url);
         axios
           .post(
             `${process.env.REACT_APP_SERVER_LINK}/post/newPost`,
@@ -70,7 +70,6 @@ const Detail = ({
             setmessageToShowInSnackBar("Post uploaded, now fetching");
             setOpenSnackbar(true);
             setLoadingValue(100);
-            console.log(res.data);
             refetch();
             setPosting(false);
           })
@@ -109,7 +108,6 @@ const Detail = ({
       .then((res) => {
         setmessageToShowInSnackBar("User deleted");
         setOpenSnackbar(true);
-        console.log(res);
         history.push(`/login`);
       })
       .catch((err) => {

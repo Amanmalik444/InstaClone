@@ -1,9 +1,7 @@
 import React from "react";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
-import AOS from "aos";
 import "./PostPreview.css";
-import "aos/dist/aos.css";
 
 const PostPreview = ({
   userId,
