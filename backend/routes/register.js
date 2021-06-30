@@ -15,8 +15,6 @@ router.post("/", (req, res) => {
     followers: [],
   });
 
-  // const token = newUser.generateAuthToken();
-
   newUser
     .save()
     .then((user) => {

@@ -46,6 +46,9 @@ const Profile = () => {
       .then((res) => {
         setPosts(res.data);
         setPostsFetched(true);
+        setPostToShow(
+          ...res.data.filter((post) => post._id === postToShow._id)
+        );
       });
   };
 
@@ -54,9 +57,13 @@ const Profile = () => {
     setPostToShow(post);
   };
 
-  if (!localStorage.getItem("jwt")) {
-    return <Redirect to="/login" />;
-  }
+  const afterDelete = () => {
+    setShowPost(false);
+  };
+
+  // if (!localStorage.getItem("jwt")) {
+  //   return <Redirect to="/login" />;
+  // }
 
   return (
     <div
@@ -78,9 +85,12 @@ const Profile = () => {
             image={postToShow.image}
             likes={postToShow.likes}
             comments={postToShow.comments}
+            caption={postToShow.caption}
             id={postToShow._id}
             setPosts={setPosts}
             refetch={refetch}
+            posts={posts}
+            afterDelete={afterDelete}
           />
         </div>
       ) : (

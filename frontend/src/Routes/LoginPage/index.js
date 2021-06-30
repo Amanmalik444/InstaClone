@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Snackbar } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -41,6 +42,10 @@ const Login = () => {
       });
     console.log("Logged In");
   };
+
+  // if (localStorage.getItem("jwt")) {
+  //   return <Redirect to="/profile" />;
+  // }
 
   return (
     <div
