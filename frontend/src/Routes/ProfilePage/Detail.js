@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useHistory } from "react-router-dom";
@@ -95,6 +93,8 @@ const Detail = ({
   };
 
   const deleteUser = () => {
+    setmessageToShowInSnackBar("Deleting User");
+    setOpenSnackbar(true);
     axios
       .post(
         `${process.env.REACT_APP_SERVER_LINK}/profile/deleteUser`,
@@ -108,12 +108,15 @@ const Detail = ({
       .then((res) => {
         setmessageToShowInSnackBar("User deleted");
         setOpenSnackbar(true);
+        localStorage.setItem("jwt", "");
+        localStorage.setItem("user", "");
+        console.log("user deleted");
         history.push(`/login`);
       })
       .catch((err) => {
         setmessageToShowInSnackBar(err.response.data);
         setOpenSnackbar(true);
-        console.log(err);
+        console.log("user not deleted");
       });
   };
 
@@ -255,6 +258,7 @@ const Detail = ({
                 style={{
                   display: "none",
                 }}
+                required
               />
               <Button
                 color="dark"
@@ -279,6 +283,7 @@ const Detail = ({
                 marginBottom: "1vh",
                 width: "200px",
               }}
+              required
             />
             {loading === false && postsFetched === true ? (
               <div>

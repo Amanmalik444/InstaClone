@@ -54,6 +54,10 @@ const HomePage = () => {
       });
   };
 
+  const afterDelete = () => {
+    console.log("deleted");
+  };
+
   if (!localStorage.getItem("jwt")) {
     return <Redirect to="/login" />;
   }
@@ -77,6 +81,7 @@ const HomePage = () => {
               setPosts={setPosts}
               refetch={refetch}
               comments={post.comments}
+              afterDelete={afterDelete}
             />
           </div>
         ))

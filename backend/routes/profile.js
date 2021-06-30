@@ -17,45 +17,44 @@ router.get("/", (req, res) => {
     });
 });
 
-//delete user
-// router.post("/deleteUser", (req, res) => {
-// post
-//   .deleteMany({ userId: req.body.id })
-//   .then(() =>
-// post
-//   .find()
-//   .then((posts) => {
-//     posts.forEach((p) => {
-//       p.likes = p.likes.filter((like) => like.toString() !== req.body.id);
-//       p.comments = p.comments.filter(
-//         (comment) => comment.userId.toString() !== req.body.id
-//       );
-//       console.log(p);
-//       p.save();
-//     });
-//   })
-// .then((p) => {
-// user
-//   .find()
-//   .then((users) => {
-//     users.forEach((u) => {
-//       console.log(u.followers, "before");
-//       u.followers = u.followers.filter((f) => f.toString() !== req.body.id);
-//       console.log(u.followers, "after");
-//     });
-//   })
-// })
-
-// .then((p) => {
-//   user.findByIdAndRemove(req.body.id).then((u) => {
-//     res.json(p);
-//   });
-// })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json("An error occured");
-//     });
-// });
+// delete user
+router.post("/deleteUser", (req, res) => {
+  post.deleteMany({ userId: req.body.id }).then(() => {
+    post
+      .find()
+      .then((posts) => {
+        posts.forEach((p) => {
+          p.likes = p.likes.filter((like) => like.toString() !== req.body.id);
+          p.comments = p.comments.filter(
+            (comment) => comment.userId.toString() !== req.body.id
+          );
+          p.save();
+        });
+        user
+          .find()
+          .then((users) => {
+            users.forEach((u) => {
+              u.followers = u.followers.filter(
+                (follower) => follower.toString() !== req.body.id
+              );
+              u.save();
+            });
+            user.findByIdAndRemove(req.body.id).then(() => {
+              res.json(200);
+              console.log("User deleted");
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json("Can't delete user");
+          });
+      })
+      .catch((err) => {
+        console.log("error");
+        res.status(500).json("An error occurred");
+      });
+  });
+});
 
 //toggle follow
 router.post("/toggleFollow", (req, res) => {

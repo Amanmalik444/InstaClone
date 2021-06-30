@@ -15,7 +15,16 @@ import Comment from "./Comment";
 import axios from "axios";
 import "./Post.css";
 
-const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
+const Post = ({
+  userId,
+  likes,
+  id,
+  image,
+  caption,
+  refetch,
+  comments,
+  afterDelete,
+}) => {
   const [comment, setComment] = useState("");
   const [edittedCaption, setEdittedCaption] = useState("");
   const [liked, setLiked] = useState(true);
@@ -29,7 +38,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
   //getting like status
   useEffect(() => {
     likes.includes(loggedInUser._id) ? setLiked(false) : setLiked(true);
-  }, []);
+  }, [likes, afterDelete]);
 
   //editing the caption
   const editCaption = (e) => {
@@ -73,6 +82,7 @@ const Post = ({ userId, likes, id, image, caption, refetch, comments }) => {
         }
       )
       .then((res) => {
+        afterDelete();
         setMoreOptions(false);
         setmessageToShowInSnackBar("Post deleted");
         setOpenSnackbar(true);
